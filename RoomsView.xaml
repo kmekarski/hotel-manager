@@ -1,0 +1,90 @@
+﻿<UserControl x:Class="HotelManager.RoomsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             Height="768" Width="874">
+
+    <Grid>
+        <!-- Section with the list of rooms -->
+        <StackPanel x:Name="RoomsListSection" Visibility="Visible">
+            <TextBlock Text="List of Rooms" FontSize="20" Margin="10"/>
+            <StackPanel HorizontalAlignment="Center" x:Name="DateSelectionSection" Margin="10">
+                <!-- Section for date selection -->
+                <TextBlock Text="Select Dates" FontSize="16" Margin="10"/>
+
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="From:" VerticalAlignment="Center" Margin="0,10"/>
+                    <DatePicker x:Name="StartDatePicker"   Margin="10" Width="150"/>
+                    <TextBlock Text="To:" VerticalAlignment="Center" Margin="10"/>
+                    <DatePicker x:Name="EndDatePicker" Margin="10" Width="150"/>
+                    <Button Content="Filter" Margin="10" Click="FilterRooms_Click"/>
+                </StackPanel>
+            </StackPanel>
+            <!-- Scrolling in the table -->
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
+                <DataGrid x:Name="RoomsGrid" Width="600"  AutoGenerateColumns="False" MouseDoubleClick="RoomsGrid_MouseDoubleClick" SelectionChanged="RoomsGrid_SelectionChanged">
+                    <DataGrid.Columns>
+                        <!-- Column definitions -->
+                        <DataGridTextColumn Header="Room Number" Binding="{Binding Number}" Width="*" />
+                        <DataGridTextColumn Header="Room Type" Binding="{Binding Type}" Width="*" />
+                        <DataGridTextColumn Header="Availability (today)" Binding="{Binding IsAvailable}" Width="*" />
+                    </DataGrid.Columns>
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGrid">
+                            <Setter Property="MaxHeight" Value="300"/>
+                        </Style>
+                    </DataGrid.Resources>
+                </DataGrid>
+            </ScrollViewer>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                <Button x:Name="EditRoomButton" Content="Edit Room" Margin="10" Visibility="Visible" IsEnabled="False"  Click="EditRoom_Click"/>
+                <Button x:Name="DeleteRoomButton" Content="Delete Room" Margin="10" Visibility="Visible" IsEnabled="False" Click="DeleteRoom_Click"/>
+                <Button Content="Add Room" Margin="10" Click="ShowAddRoomForm_Click"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Section for adding a room -->
+        <StackPanel x:Name="AddRoomSection" Visibility="Collapsed" Margin="10" Width="600">
+            <TextBlock Text="Add New Room" FontSize="20" Margin="10"/>
+            <Label Content="Room Number" Margin="10"/>
+            <TextBox x:Name="NewRoomNumberInput" Margin="10"/>
+            <Label Content="Room Type" Margin="10"/>
+            <TextBox x:Name="NewRoomTypeInput" Margin="10"/>
+            <Label Content="Availability" Margin="10"/>
+            <CheckBox x:Name="NewRoomIsAvailableInput" Content="Is Available?" Margin="10"/>
+            <Button Content="Add Room" Margin="10" Click="AddRoom"/>
+            <Button Content="Cancel" Margin="10" Click="CancelAddRoom_Click"/>
+        </StackPanel>
+
+        <!-- Section for editing a room -->
+        <StackPanel x:Name="EditRoomSection" Visibility="Collapsed" Margin="10" Width="600">
+            <TextBlock Text="Edit Room" FontSize="20" Margin="10"/>
+            <Label Content="Room Number" Margin="10"/>
+            <TextBox x:Name="EditRoomNumberInput" Margin="10"/>
+            <Label Content="Room Type" Margin="10"/>
+            <TextBox x:Name="EditRoomTypeInput" Margin="10"/>
+            <Label Content="Availability" Margin="10"/>
+            <CheckBox x:Name="EditRoomIsAvailableInput" Content="Is Available?" Margin="10"/>
+            <Button Content="Save Changes" Margin="10" Click="SaveRoomChanges_Click"/>
+            <Button Content="Cancel" Margin="10" Click="CancelEditRoom_Click"/>
+        </StackPanel>
+
+        <!-- Section for room reservations -->
+        <StackPanel x:Name="ReservationsListSection" Visibility="Collapsed" Margin="10">
+            <TextBlock Text="Room Reservations" FontSize="20" Margin="10"/>
+            <DataGrid x:Name="ReservationsForRoomsGrid" Width="600"  AutoGenerateColumns="False" Margin="10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Reservation ID" Binding="{Binding ReservationId}" Width="*" />
+                    <DataGridTextColumn Header="Client Details" Binding="{Binding Client}" Width="*" />
+                    <DataGridTextColumn Header="Start Date" Binding="{Binding StartDate}" Width="*" />
+                    <DataGridTextColumn Header="End Date" Binding="{Binding EndDate}" Width="*" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button HorizontalAlignment="Center"  Content="Back" Margin="10" Click="BackToRoomsList"/>
+        </StackPanel>
+
+    </Grid>
+</UserControl>

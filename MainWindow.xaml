@@ -1,0 +1,111 @@
+﻿<Window x:Class="HotelManager.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        WindowStyle="None"
+        Title="Majestic Hotel"
+        Height="700"
+        Width="1104"
+        AllowsTransparency="True"
+        WindowStartupLocation="CenterScreen"
+     
+        Background="#fff">
+
+    <Grid>
+
+        <!-- Stopka -->
+        <TextBlock Text="M A J E S T I C     H O T E L"
+                   Foreground="#525965"
+                   FontFamily="Fonts/#Orbitron Medium"
+                   FontSize="10"
+                   VerticalAlignment="Bottom"
+                   HorizontalAlignment="Right"
+                   Margin="0,0,15,10" />
+
+        <Border Background="#ffde59"
+                Height="15"
+                CornerRadius="3,0,0,3"
+                Width="5"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                Margin="0,0,0,8" />
+
+        <!-- Główna struktura UI -->
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="230"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- Panel boczny -->
+            <Border Background="#2E333A">
+                <StackPanel>
+
+                    <!-- Nazwa hotelu -->
+                    <Grid Height="50" Margin="0,30,0,0">
+                        <Border Background="#ffde59"
+                                Height="25"
+                                CornerRadius="3,0,0,3"
+                                Width="6"
+                                VerticalAlignment="Center"
+                                HorizontalAlignment="Right"/>
+                        <TextBlock Text="M A J E S T I C     H O T E L"
+                                   Foreground="#FFFFFF"
+                                   FontSize="15"
+                                   VerticalAlignment="Center"
+                                   HorizontalAlignment="Center"/>
+                    </Grid>
+
+                    <!-- Menu główne -->
+                    <Menu Height="450" Background="Transparent" Margin="0,40,0,0">
+                        <Menu.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <VirtualizingStackPanel Orientation="Vertical"/>
+                            </ItemsPanelTemplate>
+                        </Menu.ItemsPanel>
+
+
+                        <MenuItem Header="Home" Template="{StaticResource Menu_Template}" Click="MenuItem_Click">
+                            <MenuItem.Icon>
+                                <Image Source="pack://application:,,,/Assets/home.png" Stretch="Fill"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        <MenuItem Header="Clients" Template="{StaticResource Menu_Template}" Click="ShowClientsView">
+                            <MenuItem.Icon>
+                                <Image Source="pack://application:,,,/Assets/client.png" Stretch="Fill"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                        
+                        <MenuItem Header="Reservations" Template="{StaticResource Menu_Template}" Click="ShowReservationsView">
+                            <MenuItem.Icon>
+                                <Image Source="pack://application:,,,/Assets/reservation.png" Stretch="Fill"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+
+                        <MenuItem Header="Rooms" Template="{StaticResource Menu_Template}" Click="ShowRoomsView">
+                            <MenuItem.Icon>
+                                <Image Source="pack://application:,,,/Assets/room.png" Stretch="Fill"/>
+                            </MenuItem.Icon>
+                        </MenuItem>
+                    </Menu>
+
+                </StackPanel>
+            </Border>
+          
+            <!-- Główna zawartość -->
+            <ContentControl x:Name="MainContent" Grid.Column="1" Height="768" Width="874">
+              </ContentControl>
+            <Button Width="35" Height="35" Grid.Column="1" Margin="808,28,32,636" BorderBrush="#00EA0808" Click="CloseBtn_Click">
+                <Button.Background>
+                    <ImageBrush ImageSource="Assets/close.png"/>
+                </Button.Background>
+
+            </Button>
+            <!-- Przycisk zamykania aplikacji -->
+
+
+
+        </Grid>
+
+    </Grid>
+
+</Window>

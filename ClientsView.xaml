@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="HotelManager.ClientsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+           Height="768" Width="874">
+
+    <Grid>
+        <!-- Section with client list -->
+        <StackPanel x:Name="ClientsListSection" Visibility="Visible">
+            <TextBlock Text="Client List" FontSize="20" Margin="10"/>
+            <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
+                <DataGrid x:Name="ClientsGrid" Width="600" AutoGenerateColumns="False" Margin="10" MouseDoubleClick="ClientsGrid_MouseDoubleClick" SelectionChanged="ClientsGrid_SelectionChanged"
+                         RowStyle="{DynamicResource DataGridRowStyle1}" ColumnHeaderStyle="{DynamicResource DataGridColumnHeaderStyle1}" CellStyle="{DynamicResource DataGridCellStyle1}">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Client ID" Binding="{Binding ClientId}" Width="*"/>
+                        <DataGridTextColumn Header="Name" Binding="{Binding Name}" Width="*"/>
+                        <DataGridTextColumn Header="Email" Binding="{Binding Email}" Width="*"/>
+                        <DataGridTextColumn Header="Phone Number" Binding="{Binding PhoneNumber}" Width="*"/>
+                    </DataGrid.Columns>
+                    <DataGrid.Resources>
+                        <Style TargetType="DataGrid">
+                            <Setter Property="MaxHeight" Value="500"/>
+                        </Style>
+                    </DataGrid.Resources>
+                </DataGrid>
+            </ScrollViewer>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                <Button x:Name="EditClientButton" Content="Edit Client" Margin="10" Visibility="Visible" IsEnabled="False"  Click="EditClient_Click"/>
+                <Button x:Name="DeleteClientButton" Content="Delete Client" Margin="10" Visibility="Visible" IsEnabled="False" Click="DeleteClient_Click"/>
+                <Button Content="Add Client" Margin="10" Click="ShowAddClientForm_Click"/>
+            </StackPanel>
+        </StackPanel>
+
+        <!-- Section with client reservations -->
+        <StackPanel x:Name="ReservationsListSection" Visibility="Collapsed" Margin="10">
+            <TextBlock Text="Client Reservations" FontSize="20" Margin="10"/>
+            <DataGrid x:Name="ReservationsForClientGrid" AutoGenerateColumns="False" Width="600" Margin="10">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Reservation ID" Binding="{Binding ReservationId}" Width="*"/>
+                    <DataGridTextColumn Header="Room Number" Binding="{Binding Room}" Width="*"/>
+                    <DataGridTextColumn Header="Check-in Date" Binding="{Binding StartDate}" Width="*"/>
+                    <DataGridTextColumn Header="Check-out Date" Binding="{Binding EndDate}" Width="*"/>
+                </DataGrid.Columns>
+            </DataGrid>
+            <Button HorizontalAlignment="Center" Content="Back" Margin="10" Click="BackToClientsList"/>
+        </StackPanel>
+
+        <!-- Section for adding a client -->
+        <StackPanel x:Name="AddClientSection" Visibility="Collapsed" Margin="10" Width="600">
+            <TextBlock Text="Add New Client" FontSize="20" Margin="10"/>
+
+            <Label Content="Name" Margin="10"/>
+            <TextBox x:Name="NewClientNameInput" Margin="10"/>
+
+            <Label Content="Email" Margin="10"/>
+            <TextBox x:Name="NewClientEmailInput" Margin="10"/>
+
+            <Label Content="Phone Number" Margin="10"/>
+            <TextBox x:Name="NewClientPhoneNumberInput" Margin="10"/>
+
+            <Button Content="Add Client" Margin="10" Click="AddClient"/>
+            <Button Content="Cancel" Margin="10" Click="CancelAddClient_Click"/>
+        </StackPanel>
+
+        <!-- Section for editing a client -->
+        <StackPanel x:Name="EditClientSection" Visibility="Collapsed" Margin="10" Width="600">
+            <TextBlock Text="Edit Client" FontSize="20" Margin="10"/>
+
+            <Label Content="Name" Margin="10"/>
+            <TextBox x:Name="EditClientNameInput" Margin="10"/>
+
+            <Label Content="Email" Margin="10"/>
+            <TextBox x:Name="EditClientEmailInput" Margin="10" IsReadOnly="True"/>
+
+            <Label Content="Phone Number" Margin="10"/>
+            <TextBox x:Name="EditClientPhoneNumberInput" Margin="10"/>
+
+            <Button Content="Save Changes" Margin="10" Click="SaveClientChanges_Click"/>
+            <Button Content="Cancel" Margin="10" Click="CancelEditClient_Click"/>
+        </StackPanel>
+    </Grid>
+</UserControl>
